@@ -1,4 +1,4 @@
-# Stage 1: Base image with common dependencies
+# Stage 1: Base image with all dependencies and app code
 FROM nvidia/cuda:12.6.3-cudnn-runtime-ubuntu24.04 AS base
 
 # Prevents prompts from packages asking for user input during installation
@@ -49,6 +49,12 @@ WORKDIR /comfyui
 # Support for the network volume
 ADD src/extra_model_paths.yaml ./
 
+# Create necessary directories for models
+RUN mkdir -p models/checkpoints models/vae models/unet models/clip
+
+# Define a volume for the models directory to be used with an external volume on RunPod
+VOLUME /comfyui/models
+
 # Go back to the root
 WORKDIR /
 
@@ -72,12 +78,3 @@ RUN chmod +x /usr/local/bin/comfy-manager-set-mode
 
 # Set the default command to run when starting the container
 CMD ["/start.sh"]
-
-# Change working directory to ComfyUI
-WORKDIR /comfyui
-
-# Create necessary directories upfront
-RUN mkdir -p models/checkpoints models/vae models/unet models/clip
-
-# Stage 3: Final image
-FROM base AS final

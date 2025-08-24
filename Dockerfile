@@ -46,6 +46,14 @@ RUN /usr/bin/yes | comfy --workspace /comfyui install --version 0.3.51 --cuda-ve
 # Change working directory to ComfyUI
 WORKDIR /comfyui
 
+# ---
+## Install custom nodes from Git
+# ---
+# ComfyUI-LTXVideo
+RUN git clone https://github.com/Lightricks/ComfyUI-LTXVideo.git custom_nodes/ComfyUI-LTXVideo
+RUN pip install -r custom_nodes/ComfyUI-LTXVideo/requirements.txt
+# ---
+
 # Support for the network volume
 ADD src/extra_model_paths.yaml ./
 

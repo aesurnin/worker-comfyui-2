@@ -9,6 +9,7 @@ services:
             - driver: nvidia
               count: all
               capabilities: [gpu]
+    gpus: all
     environment:
       - SERVE_API_LOCALLY=true
     ports:

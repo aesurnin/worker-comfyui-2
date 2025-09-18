@@ -46,22 +46,6 @@ RUN /usr/bin/yes | comfy --workspace /comfyui install --version 0.3.59 --cuda-ve
 # Change working directory to ComfyUI
 WORKDIR /comfyui
 
-# ---
-## Install custom nodes from Git
-# ---
-# ComfyUI-LTXVideo
-RUN git clone https://github.com/Lightricks/ComfyUI-LTXVideo.git custom_nodes/ComfyUI-LTXVideo
-RUN pip install -r custom_nodes/ComfyUI-LTXVideo/requirements.txt
-# ---
-# ComfyUI-KJNodes
-RUN git clone https://github.com/kijai/ComfyUI-KJNodes.git custom_nodes/ComfyUI-KJNodes
-RUN pip install -r custom_nodes/ComfyUI-KJNodes/requirements.txt
-# ---
-# ComfyUI-VideoHelperSuite
-RUN git clone https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite.git custom_nodes/ComfyUI-VideoHelperSuite
-RUN pip install -r custom_nodes/ComfyUI-VideoHelperSuite/requirements.txt
-# ---
-
 # Support for the network volume
 ADD src/extra_model_paths.yaml ./
 

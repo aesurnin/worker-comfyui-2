@@ -1,5 +1,5 @@
 # Stage 1: Base image with all dependencies and app code
-FROM nvidia/cuda:12.6.3-cudnn-runtime-ubuntu24.04 AS base
+FROM nvidia/cuda:12.3.2-cudnn-runtime-ubuntu22.04 AS base
 
 # Prevents prompts from packages asking for user input during installation
 ENV DEBIAN_FRONTEND=noninteractive
@@ -12,8 +12,8 @@ ENV CMAKE_BUILD_PARALLEL_LEVEL=8
 
 # Install Python, git and other necessary tools
 RUN apt-get update && apt-get install -y \
-    python3.12 \
-    python3.12-venv \
+    python3.10 \
+    python3.10-venv \
     git \
     wget \
     libgl1 \
@@ -22,7 +22,7 @@ RUN apt-get update && apt-get install -y \
     libxext6 \
     libxrender1 \
     ffmpeg \
-    && ln -sf /usr/bin/python3.12 /usr/bin/python \
+    && ln -sf /usr/bin/python3.10 /usr/bin/python \
     && ln -sf /usr/bin/pip3 /usr/bin/pip
 
 # Clean up to reduce image size
@@ -41,7 +41,7 @@ ENV PATH="/opt/venv/bin:${PATH}"
 RUN uv pip install comfy-cli pip setuptools wheel
 
 # Install ComfyUI
-RUN /usr/bin/yes | comfy --workspace /comfyui install --version 0.3.59 --cuda-version 12.6 --nvidia
+RUN /usr/bin/yes | comfy --workspace /comfyui install --version 0.3.59 --cuda-version 12.3 --nvidia
 
 # Change working directory to ComfyUI
 WORKDIR /comfyui

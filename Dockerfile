@@ -1,5 +1,5 @@
-# Stage 1: Base image with all dependencies and app code
-FROM nvidia/cuda:12.3.2-cudnn-runtime-ubuntu22.04 AS base
+# Build argument for base image selection
+ARG BASE_IMAGE=nvidia/cuda:12.6.3-cudnn-runtime-ubuntu24.04
 
 # Prevents prompts from packages asking for user input during installation
 ENV DEBIAN_FRONTEND=noninteractive
